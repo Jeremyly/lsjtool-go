@@ -1,0 +1,65 @@
+AppDebug: true # 设置程序所处的模式，debug=true 调试模式，日志优先显示在控制台， debug=false 非调试模式，将写入日志文件
+
+HttpServer:
+    Port: ":80" #门户网站类端口,注意前面有冒号
+
+CA: # https证书，在正式环境下才需要配置
+    Crt: "./ca/toolsj.cn.crt"
+    Key: "./ca/toolsj.cn.key"
+WeChat: # weichat 微信支付
+    182Key: "./ca/wechat_key.pem"
+    APPIdName: "wechat_app_id" # 微信支付的appid存放下数据库表constant中的name。需要和数据库内的name一致。下同
+    ApiV3KeyName: "wechat_mch_api_v3_key" # 商户APIv3密钥的Name
+    MchCertName: "wechat_mch_cert_num" # 商户证书序列号
+    MchIdName: "wechat_mch_id" # 商户号
+AliPay: # 支付宝支付
+    PrivateKey: "./ca/ali_privateKey.txt"
+    PublicKey: "./ca/ali_publicKey.txt"
+    AppIdName: "ali_appid" # 支付宝支付的appid存放下数据库表constant中的name
+
+Logs:
+    ProgramLog: "./logs/program.log" #设置项目骨架运行时日志文件，接受相对路径或绝对路径，相对路径请以./开始
+    TextFormat: "json" #记录日志的格式，参数选项：console、json ， console 表示一般的文本格式
+    TimePrecision: "millisecond" #记录日志时，相关的时间精度，该参数选项：second  、 millisecond ， 分别表示 秒 和 毫秒 ,默认为毫秒级别
+    MaxSize: 10 #每个日志的最大尺寸(以MB为单位）， 超过该值，系统将会自动进行切割
+    MaxBackups: 7 #保留旧日志最大个数
+    MaxAge: 15 #保留旧日志最大天数
+    Compress: false #日志备份时，是否进行压缩
+
+Mysql:
+    SlowThreshold: 30 # 慢 SQL 阈值(sql执行时间超过此时间单位（秒），就会触发系统日志记录)
+    Host: "127.0.0.1"
+    DataBase: "ai_tool"
+    DataBaseTest: "ai_tool_test" # 测试库，如果没用可不填。注意，测试库的名称填在这里。也需要填在还是填在上面的DataBase中。这个名称是为了确定DataBase是否是测试库
+    Port: 3306
+    Prefix: ""
+    User: "root"
+    Pass: "123456" # 数据库密码，要修改成自己的
+    Charset: "utf8mb4"
+    SetMaxIdleConns: 10
+    SetMaxOpenConns: 128
+    SetConnMaxLifetime: 5 # 连接不活动时的最大生存时间(秒)
+    ReConnectInterval: 3 # 保留项,重连数据库间隔秒数
+    PingFailRetryTimes: 3 # 保留项,最大重连次数
+
+# 其他类型的文件
+OtherFile:
+    CnIp: "./cn.zone.txt" # 国内IP地址库
+    BanIp: "./PermanentBan.gz" # 被永封的ip
+
+URL: "https://toolsj.cn" # 网站域名。作用是接收微信和支付宝的回调地址。所以必须是https的
+
+BaiduApp: # 百度app的应用信息。这些id对应的key。存放在数据库表'token'中。id与之一一对应
+    PortraitAppId: 11111111 # 人像分割的应用id。注意：该应用id需要自己注册
+    PortraitApiUrl: "https://aip.baidubce.com/rest/2.0/image-classify/v1/" # 人像分割的api地址。该地址一般不变
+    EffectsEnhancementAppId: 11111111 # 图像特效与增强 的应用id。注意：该应用id需要自己注册
+    EffectsEnhancementApiUrl: "https://aip.baidubce.com/rest/2.0/image-process/v1/"
+    DocumentAppId: 11111111 # 文档图像处理 的应用id。注意：该应用id需要自己注册
+    DocumentApiUrl: "https://aip.baidubce.com/rest/2.0/ocr/v1/"
+
+WaterImg: "./watermark.jpg" # 水印图片的地址
+
+WebPackageName: # 存放静态资源的目录的名称。只支持在项目的根目录下创建
+    Web: "web" # PC端静态资源目录
+    H5: "h5" # H5端静态资源目录
+

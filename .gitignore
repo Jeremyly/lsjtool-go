@@ -1,0 +1,17 @@
+/.idea/
+.idea/
+.idea
+/storage/logs/*
+/storage/uploaded/*
+/public/storage
+/save/
+/logs
+go.sum
+main
+ca/toolsj.cn.crt
+ca/toolsj.cn.key
+PermanentBan.gz
+文件夹映射.bat
+web
+h5
+ca
