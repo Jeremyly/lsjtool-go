@@ -29,15 +29,18 @@ func IPHandler() gin.HandlerFunc {
 			fmt.Println(time.Now().Format("2006-01-02 15:04:05"), " ", c.ClientIP(), c.Request.URL.Path, " ")
 			c.Abort()
 		} else if res == -128 {
-			response.Fail(c, g.AccessForbiddenCode, "您已被禁用永久封禁！")
+			response.Fail(c, g.AccessForbiddenCode, "你已被禁用永久封禁！")
 			c.Abort()
 		} else if res < 0 {
 			response.Fail(c, g.AccessForbiddenCode, fmt.Sprintf("由于访问过于频繁，您已被禁用%d分钟！", -res))
+			if res == -127 {
+				fmt.Println(time.Now().Format("2006-01-02 15:04:05"), " ", c.ClientIP(), c.Request.URL.Path, " ")
+			}
 			c.Abort()
 		} else {
 			c.Next()
 			// 如果是300走缓存，则减少访问次数
-			if c.Writer.Status()>= 300 && c.Writer.Status()< 400 {
+			if c.Writer.Status() >= 300 && c.Writer.Status() < 400 {
 				g.IP.Reduce(c.ClientIP())
 			}
 		}
